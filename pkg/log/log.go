@@ -76,7 +76,7 @@ func New(env Env) *zap.Logger {
 	case EnvProduct:
 		enablers = []zapcore.LevelEnabler{gteInfo{}, eqWarn{}, gteError{}}
 	default:
-		enablers = []zapcore.LevelEnabler{gteDebug{}, eqWarn{}, gteError{}}
+		enablers = []zapcore.LevelEnabler{gteDebug{}, gteInfo{}, eqWarn{}, gteError{}}
 	}
 	for i, _ := range enablers {
 		cores = append(cores, newCore(enablers[i]))
