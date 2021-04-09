@@ -4,8 +4,9 @@ import "github.com/BurntSushi/toml"
 
 type Config struct {
 	Runtime    string
-	ServerPort string
-	ManagePort string
+	ServerAddr string
+	ManageAddr string
+	Service    Service
 }
 
 type Service struct {

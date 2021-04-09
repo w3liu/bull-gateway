@@ -1,7 +1,7 @@
 # Runtime debug/release
 runtime = "debug"
-serverPort = ":8090"
-managePort = ":8091"
+serverAddr = ":8090"
+manageAddr = ":8091"
 
 [service]
 name = "go.bull.srv.gateway"

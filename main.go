@@ -12,15 +12,13 @@ func main() {
 	if err := cfg.Init("./config/config.toml"); err != nil {
 		panic(err)
 	}
-
+	log.Info("bull-gateway config", zap.Any("config", cfg))
 	// 启动Server
 	go func() {
-		if err := server.Run(cfg); err != nil {
+		if err := server.Start(cfg); err != nil {
 			panic(err)
 		}
 	}()
-
-	log.Info("bull-gateway start success", zap.Any("config", cfg))
 
 	select {}
 }
