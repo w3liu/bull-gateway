@@ -23,14 +23,11 @@ func (s *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "HEAD" && r.URL.Path == "/" {
 		return
 	}
-	//_, _ = w.Write([]byte("hello world"))
 
 	ctx, cancel := context.WithTimeout(context.TODO(), time.Second*5)
 	defer cancel()
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "http://www.baidu.com", r.Body)
-
-	r.URL.Path = "http://www.baidu.com"
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://www.baidu.com", r.Body)
 
 	resp, err := s.tr.RoundTrip(req)
 	if err != nil {
