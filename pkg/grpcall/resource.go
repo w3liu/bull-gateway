@@ -1,5 +1,5 @@
 package grpcall
 
-type Resource interface {
+type ProtoResource interface {
 	GetProtoFileContent(module string) string
 }

@@ -6,16 +6,8 @@ type resource struct {
 	content map[string]string
 }
 
-func (r *resource) GetProtoFileContent(module string) string {
-	if _, ok := r.content[module]; ok {
-		return r.content[module]
-	} else {
-		return ""
-	}
-}
-
-func TestFindService(t *testing.T) {
-	var r = &resource{content: map[string]string{
+func getTestData() map[string]string {
+	return map[string]string{
 		"helloword": `syntax = "proto3";
 
 		package helloworld;
@@ -72,11 +64,23 @@ func TestFindService(t *testing.T) {
 		message ServerStreamData{
 			string msg = 1;
 		}`,
-	}}
-	var p = newProtoSet(r)
-	sd, err := p.findService("helloword", "helloworld.Greeter")
+	}
+}
+
+func (r *resource) GetProtoFileContent(module string) string {
+	if _, ok := r.content[module]; ok {
+		return r.content[module]
+	} else {
+		return ""
+	}
+}
+
+func TestFindService(t *testing.T) {
+	var r = &resource{content: getTestData()}
+	var g = newGrpCall(Resource(r))
+	resp, err := g.Call("helloworld.Greeter", "SayHello", `{"name": "hello world"}`)
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log("sd:", sd)
+	t.Log("resp", resp)
 }
