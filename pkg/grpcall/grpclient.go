@@ -8,9 +8,9 @@ type GrpClient interface {
 	// 返回当前的 options
 	Options() Options
 	// 调用方法
-	Call(serviceName, methodName, data string) (*Response, error)
+	Call(server, svcName, methodName, data string) (*Response, error)
 	// 调用方法（自定义context）
-	CallWithCtx(ctx context.Context, serviceName, methodName, data string) (*Response, error)
+	CallWithCtx(ctx context.Context, server, svcName, methodName, data string) (*Response, error)
 }
 
 type Option func(*Options)

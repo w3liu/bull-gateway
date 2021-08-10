@@ -14,3 +14,18 @@ type Response struct {
 	IsStream   bool
 	Cancel     context.CancelFunc
 }
+
+func (r *Response) Read() {
+}
+
+func (r *Response) Write() {
+}
+
+func (r *Response) IsError() {
+}
+
+func (r *Response) IsClose() {
+}
+
+func (r *Response) Close() {
+}

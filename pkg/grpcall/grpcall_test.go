@@ -8,7 +8,7 @@ type resource struct {
 
 func getTestData() map[string]string {
 	return map[string]string{
-		"helloword": `syntax = "proto3";
+		"helloworld": `syntax = "proto3";
 
 		package helloworld;
 		
@@ -78,7 +78,7 @@ func (r *resource) GetProtoFileContent(module string) string {
 func TestFindService(t *testing.T) {
 	var r = &resource{content: getTestData()}
 	var g = newGrpCall(Resource(r))
-	resp, err := g.Call("helloworld.Greeter", "SayHello", `{"name": "hello world"}`)
+	resp, err := g.Call("go.bull.greeter", "helloworld.Greeter", "SayHello", `{"name": "hello world"}`)
 	if err != nil {
 		t.Fatal(err)
 	}
