@@ -1,9 +1,7 @@
 package grpcall
 
 import (
-	"github.com/w3liu/bull/client"
 	"github.com/w3liu/bull/registry"
-	"google.golang.org/grpc"
 	"testing"
 )
 
@@ -96,21 +94,9 @@ func (r *resource) GetProtoFileContent(module string) string {
 }
 
 func TestGrpcall_Call(t *testing.T) {
-	var r = &resource{content: getTestData()}
-	reg := registry.NewRegistry(registry.Addrs([]string{"127.0.0.1:2379"}...))
-	cli := client.NewClient(
-		client.Registry(reg),
-		client.Service("hello.svc"))
-
-	conn, ok := cli.Instance().(*grpc.ClientConn)
-	if !ok {
-		t.Fatal("convert type failed")
-	}
-
-	var connMap = make(map[string]*grpc.ClientConn)
-	connMap["hello.svc"] = conn
-
-	var g = newGrpCall(Resource(r), ClientMap(connMap))
+	var res = &resource{content: getTestData()}
+	r := registry.NewRegistry(registry.Addrs([]string{"127.0.0.1:2379"}...))
+	var g = newGrpCall(Registry(r), Resource(res))
 	resp, err := g.Call("hello.svc", "person.Person", "SayHello", `{"name": "hello world"}`)
 	if err != nil {
 		t.Fatal(err)
