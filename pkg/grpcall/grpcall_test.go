@@ -1,6 +1,11 @@
 package grpcall
 
-import "testing"
+import (
+	"github.com/w3liu/bull/client"
+	"github.com/w3liu/bull/registry"
+	"google.golang.org/grpc"
+	"testing"
+)
 
 type resource struct {
 	content map[string]string
@@ -64,6 +69,21 @@ func getTestData() map[string]string {
 		message ServerStreamData{
 			string msg = 1;
 		}`,
+		"person": `syntax = "proto3";
+
+		package person;
+		
+		service Person {
+		  rpc SayHello(SayHelloRequest) returns (SayHelloResponse) {}
+		}
+		
+		message SayHelloRequest {
+		  string name = 1;
+		}
+		
+		message SayHelloResponse {
+		  string msg = 2;
+		}`,
 	}
 }
 
@@ -75,10 +95,23 @@ func (r *resource) GetProtoFileContent(module string) string {
 	}
 }
 
-func TestFindService(t *testing.T) {
+func TestGrpcall_Call(t *testing.T) {
 	var r = &resource{content: getTestData()}
-	var g = newGrpCall(Resource(r))
-	resp, err := g.Call("go.bull.greeter", "helloworld.Greeter", "SayHello", `{"name": "hello world"}`)
+	reg := registry.NewRegistry(registry.Addrs([]string{"127.0.0.1:2379"}...))
+	cli := client.NewClient(
+		client.Registry(reg),
+		client.Service("hello.svc"))
+
+	conn, ok := cli.Instance().(*grpc.ClientConn)
+	if !ok {
+		t.Fatal("convert type failed")
+	}
+
+	var connMap = make(map[string]*grpc.ClientConn)
+	connMap["hello.svc"] = conn
+
+	var g = newGrpCall(Resource(r), ClientMap(connMap))
+	resp, err := g.Call("hello.svc", "person.Person", "SayHello", `{"name": "hello world"}`)
 	if err != nil {
 		t.Fatal(err)
 	}
