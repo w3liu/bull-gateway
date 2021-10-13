@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/w3liu/bull-gateway/config"
-	"github.com/w3liu/bull-gateway/pkg/log"
-	"github.com/w3liu/bull-gateway/server"
+	"github.com/w3liu/bull-gateway/cmd/config"
+	"github.com/w3liu/bull-gateway/pkg/server"
+	"github.com/w3liu/bull-gateway/tools/log"
 	"go.uber.org/zap"
 )
 

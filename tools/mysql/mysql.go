@@ -3,7 +3,7 @@ package mysql
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/w3liu/bull-gateway/pkg/log"
+	"github.com/w3liu/bull-gateway/tools/log"
 	"go.uber.org/zap"
 	"time"
 	"xorm.io/xorm"

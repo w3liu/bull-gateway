@@ -2,7 +2,7 @@ package handler
 
 import (
 	"context"
-	"github.com/w3liu/bull-gateway/pkg/log"
+	"github.com/w3liu/bull-gateway/tools/log"
 	"go.uber.org/zap"
 	"io"
 	"net/http"
