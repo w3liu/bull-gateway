@@ -11,7 +11,7 @@ type ApiSrv interface {
 	Create(ctx context.Context, api *types.Api, opts options.CreateOptions) error
 	Update(ctx context.Context, api *types.Api, opts options.UpdateOptions) error
 	Delete(ctx context.Context, id int64, opts options.DeleteOptions) error
-	Page(ctx context.Context, api *types.Api, opts options.PageOptions) error
+	Page(ctx context.Context, apis []*types.Api, opts options.PageOptions) error
 }
 
 type apiService struct {

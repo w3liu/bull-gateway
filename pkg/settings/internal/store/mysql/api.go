@@ -16,14 +16,18 @@ func newApiStore(db *mysql.Store) *apiStore {
 }
 
 func (s *apiStore) Create(ctx context.Context, api *types.Api, opts options.CreateOptions) error {
-	return nil
+	_, err := s.db.Context(ctx).Insert(api)
+	return err
 }
 func (s *apiStore) Update(ctx context.Context, api *types.Api, opts options.UpdateOptions) error {
-	return nil
+	_, err := s.db.Context(ctx).Update(api)
+	return err
 }
 func (s *apiStore) Delete(ctx context.Context, id int64, opts options.DeleteOptions) error {
-	return nil
+	_, err := s.db.Context(ctx).Delete(&types.Api{Id: id})
+	return err
 }
-func (s *apiStore) Page(ctx context.Context, api *types.Api, opts options.PageOptions) error {
-	return nil
+func (s *apiStore) Page(ctx context.Context, apis []*types.Api, opts options.PageOptions) error {
+	err := s.db.Context(ctx).Limit(opts.Limit(), opts.Start()).Find(&apis)
+	return err
 }
