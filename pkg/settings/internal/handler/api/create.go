@@ -16,6 +16,7 @@ func (h *Handler) Create(c *gin.Context) {
 	}
 	if err := h.srv.ApiSrv().Create(context.Background(), r, options.CreateOptions{}); err != nil {
 		response.Write(c, err, nil)
+		return
 	}
 	response.Write(c, nil, nil)
 }
