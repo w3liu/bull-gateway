@@ -17,15 +17,14 @@ const (
 )
 
 // 返回ContentType
-type ResultType string
+type ContentType string
 
 const (
-	ResultTypeJson        ResultType = "application/json;charset=utf-8"
-	ResultTypeText        ResultType = "text/plain;charset=utf-8"
-	ResultTypeBinary      ResultType = "application/octet-stream;charset=utf-8"
-	ResultTypeXml         ResultType = "application/xml;charset=utf-8"
-	ResultTypeHtml        ResultType = "text/html;charset=utf-8"
-	ResultTypePassThrough ResultType = "PASSTHROUGH"
+	ContentTypeJson   ContentType = "application/json;charset=utf-8"
+	ContentTypeText   ContentType = "text/plain;charset=utf-8"
+	ContentTypeBinary ContentType = "application/octet-stream;charset=utf-8"
+	ContentTypeXml    ContentType = "application/xml;charset=utf-8"
+	ContentTypeHtml   ContentType = "text/html;charset=utf-8"
 )
 
 // api上线状态
@@ -222,23 +221,16 @@ const (
 type PluginType int32
 
 const (
-	PluginTypeIp              PluginType = iota + 1 // IP访问
-	PluginTypeSign                                  // 签名
-	PluginTypeJwt                                   // JWT
-	PluginTypeCors                                  // 跨域访问
-	PluginTypeCache                                 // 缓存
-	PluginTypeCodeMapping                           // 错误码映射
-	PluginTypeTrafficControl                        // 流量控制
-	PluginTypeOAuth2                                // OAuth2
-	PluginTypeBreaker                               // 熔断
-	PluginTypeCrycxAuthApp                          // crycx auth app
-	PluginTypeCrycxAuthH5                           // crycx auth h5
-	PluginTypeCrycxRealName                         // crycx real name
-	PluginTypeCrycxViewCount                        // crycx view count
-	PluginTypeIdentity                              // 身份认证
-	PluginTypeCrycxOAuthToken                       // crycx oauth token
-	PluginTypeCrycxAuthSlide                        // crycx auth slide
-	PluginTypeCrycxSoldier                          // crycx soldier
+	PluginTypeIp             PluginType = iota + 1 // IP访问
+	PluginTypeSign                                 // 签名
+	PluginTypeJwt                                  // JWT
+	PluginTypeCors                                 // 跨域访问
+	PluginTypeCache                                // 缓存
+	PluginTypeCodeMapping                          // 错误码映射
+	PluginTypeTrafficControl                       // 流量控制
+	PluginTypeOAuth2                               // OAuth2
+	PluginTypeBreaker                              // 熔断
+
 )
 
 func (t PluginType) IsValid() error {
@@ -252,15 +244,7 @@ func (t PluginType) IsValid() error {
 		PluginTypeCodeMapping,
 		PluginTypeTrafficControl,
 		PluginTypeOAuth2,
-		PluginTypeBreaker,
-		PluginTypeCrycxAuthApp,
-		PluginTypeCrycxAuthH5,
-		PluginTypeCrycxRealName,
-		PluginTypeCrycxViewCount,
-		PluginTypeCrycxSoldier,
-		PluginTypeIdentity,
-		PluginTypeCrycxOAuthToken,
-		PluginTypeCrycxAuthSlide:
+		PluginTypeBreaker:
 		return nil
 	}
 	return errors.New("invalid type")
@@ -275,12 +259,10 @@ func (t PluginType) Weight() int32 {
 		return 9000
 	case PluginTypeBreaker:
 		return 8000
-	case PluginTypeSign, PluginTypeJwt, PluginTypeIdentity, PluginTypeCrycxAuthApp, PluginTypeCrycxAuthH5, PluginTypeCrycxRealName, PluginTypeCrycxOAuthToken:
+	case PluginTypeSign, PluginTypeJwt:
 		return 7000
-	case PluginTypeCrycxViewCount, PluginTypeCrycxAuthSlide, PluginTypeCrycxSoldier:
-		return 6000
 	case PluginTypeCache:
-		return 5000
+		return 6000
 	}
 	return 0
 }

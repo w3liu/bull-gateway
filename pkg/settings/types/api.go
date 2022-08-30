@@ -32,9 +32,9 @@ type Api struct {
 	MockHTTPStatusCode int32  `xorm:"INT(11) default 0 comment('Mock HTTP Status Code')"`
 
 	// 返回结果定义
-	ResultType       ResultType `xorm:"VARCHAR(100) not null comment('返回ContentType：JSON，TEXT，BINARY，XML，HTML，PASSTHROUGH（透传后端Content-Type）')"`
-	ResultSample     string     `xorm:"TEXT comment('返回结果示例')"`
-	FailResultSample string     `xorm:"TEXT comment('失败返回结果示例')"`
+	ResultType       ContentType `xorm:"VARCHAR(100) not null comment('返回ContentType：JSON，TEXT，BINARY，XML，HTML，PASSTHROUGH（透传后端Content-Type）')"`
+	ResultSample     string      `xorm:"TEXT comment('返回结果示例')"`
+	FailResultSample string      `xorm:"TEXT comment('失败返回结果示例')"`
 
 	CreatedAt time.Time `xorm:"created"`
 	UpdatedAt time.Time `xorm:"updated"`

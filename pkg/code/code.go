@@ -7,23 +7,20 @@ import (
 )
 
 const (
-	// ErrSuccess - 200: OK.
-	ErrSuccess int = iota + 100001
+	// Success - 200: OK.
+	Success = 200
 
 	// ErrUnknown - 500: Internal server error.
-	ErrUnknown
+	ErrUnknown = 500
 
 	// ErrBind - 400: Error occurred while binding the request body to the struct.
-	ErrBind
+	ErrBind = 400
 
-	// ErrValidation - 400: Validation failed.
-	ErrValidation
+	// ErrUnauthorized - 401: Unauthorized.
+	ErrUnauthorized = 401
 
-	// ErrTokenInvalid - 401: Token invalid.
-	ErrTokenInvalid
-
-	// ErrPageNotFound - 404: Page not found.
-	ErrPageNotFound
+	// ErrNotFound - 404: resource not found.
+	ErrNotFound = 404
 )
 
 // ErrCode implements `github.com/marmotedu/errors`.Coder interface.
