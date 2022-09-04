@@ -1,8 +1,8 @@
 package mysql
 
 import (
+	"github.com/w3liu/bull-gateway/infra/mysql"
 	"github.com/w3liu/bull-gateway/pkg/settings/internal/store"
-	"github.com/w3liu/bull-gateway/tools/mysql"
 )
 
 type myFactory struct {

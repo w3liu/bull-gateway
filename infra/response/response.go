@@ -1,12 +1,13 @@
 package response
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/w3liu/bull-gateway/pkg/code"
-	"github.com/w3liu/bull-gateway/pkg/errors"
-	"github.com/w3liu/bull-gateway/tools/log"
-	"go.uber.org/zap"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/w3liu/bull-gateway/infra/code"
+	"github.com/w3liu/bull-gateway/infra/errors"
+	"github.com/w3liu/bull-gateway/infra/log"
+	"go.uber.org/zap"
 )
 
 type Response struct {
@@ -23,7 +24,7 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-func Write(c *gin.Context, err error, data interface{}) {
+func Write(c *gin.Context, data interface{}, err error) {
 	if err != nil {
 		log.Error("error", zap.Error(err))
 		coder := errors.ParseCoder(err)
@@ -41,4 +42,16 @@ func Write(c *gin.Context, err error, data interface{}) {
 		Message: "success",
 		Data:    data,
 	})
+}
+
+func Failed(c *gin.Context, err error) {
+	Write(c, nil, err)
+}
+
+func FailedWithC(c *gin.Context, code int, err error) {
+	Failed(c, errors.WrapC(err, code, ""))
+}
+
+func Success(c *gin.Context, data interface{}) {
+	Write(c, data, nil)
 }

@@ -2,9 +2,10 @@ package mysql
 
 import (
 	"context"
+
+	"github.com/w3liu/bull-gateway/infra/mysql"
 	"github.com/w3liu/bull-gateway/pkg/settings/options"
 	"github.com/w3liu/bull-gateway/pkg/settings/types"
-	"github.com/w3liu/bull-gateway/tools/mysql"
 )
 
 type apiStore struct {

@@ -2,11 +2,12 @@ package mysql
 
 import (
 	"context"
+	"testing"
+
 	"github.com/BurntSushi/toml"
+	"github.com/w3liu/bull-gateway/infra/mysql"
 	"github.com/w3liu/bull-gateway/pkg/settings/options"
 	"github.com/w3liu/bull-gateway/pkg/settings/types"
-	"github.com/w3liu/bull-gateway/tools/mysql"
-	"testing"
 )
 
 func newStore() *mysql.Store {

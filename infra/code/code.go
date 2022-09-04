@@ -1,26 +1,20 @@
 package code
 
 import (
-	"github.com/novalagung/gubrak"
-	"github.com/w3liu/bull-gateway/pkg/errors"
 	"net/http"
+
+	"github.com/novalagung/gubrak"
+	"github.com/w3liu/bull-gateway/infra/errors"
 )
 
+// all of the error code need to call register method to the errors package
 const (
-	// Success - 200: OK.
-	Success = 200
-
-	// ErrUnknown - 500: Internal server error.
-	ErrUnknown = 500
-
-	// ErrBind - 400: Error occurred while binding the request body to the struct.
-	ErrBind = 400
-
-	// ErrUnauthorized - 401: Unauthorized.
-	ErrUnauthorized = 401
-
-	// ErrNotFound - 404: resource not found.
-	ErrNotFound = 404
+	Success         = 200 // Request success.
+	ErrUnknown      = 500 // Internal server error.
+	ErrBind         = 400 // Error occurred while binding the request body to the struct.
+	ErrUnauthorized = 401 // Unauthorized or Token invalid.
+	ErrForbidden    = 403 // Access to this resource or interface is forbidden.
+	ErrNotFound     = 404 // Resource not found.
 )
 
 // ErrCode implements `github.com/marmotedu/errors`.Coder interface.

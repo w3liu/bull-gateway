@@ -5,10 +5,12 @@ import (
 	"github.com/w3liu/bull-gateway/pkg/settings/internal/store"
 )
 
+const Api = "api"
+
 type Handler struct {
 	srv service.Service
 }
 
-func newHandler(s store.Factory) *Handler {
+func New(s store.Factory) *Handler {
 	return &Handler{srv: service.NewService(s)}
 }

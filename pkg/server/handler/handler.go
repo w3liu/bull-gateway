@@ -2,11 +2,12 @@ package handler
 
 import (
 	"context"
-	"github.com/w3liu/bull-gateway/tools/log"
-	"go.uber.org/zap"
 	"io"
 	"net/http"
 	"time"
+
+	"github.com/w3liu/bull-gateway/infra/log"
+	"go.uber.org/zap"
 )
 
 type Handler struct {
