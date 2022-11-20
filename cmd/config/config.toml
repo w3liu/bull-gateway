@@ -1,8 +1,0 @@
-# Runtime debug/release
-runtime = "debug"
-serverAddr = ":8090"
-manageAddr = ":8091"
-
-[service]
-name = "go.bull.srv.gateway"
-registry = ["127.0.0.1:2379"]

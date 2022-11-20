@@ -3,6 +3,7 @@ package mysql
 import (
 	"fmt"
 	"time"
+	"xorm.io/xorm/names"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/w3liu/bull-gateway/infra/log"
@@ -12,7 +13,7 @@ import (
 
 type Conf struct {
 	HostPort string
-	Username string
+	UserName string
 	DBName   string
 	Password string
 	MaxConns int
@@ -33,7 +34,7 @@ type Transaction interface {
 }
 
 func NewStore(cfg *Conf) *Store {
-	dial := fmt.Sprintf("%v:%v@tcp(%v)/%v?charset=utf8&loc=%v", cfg.Username,
+	dial := fmt.Sprintf("%v:%v@tcp(%v)/%v?charset=utf8&loc=%v", cfg.UserName,
 		cfg.Password, cfg.HostPort, cfg.DBName, "Asia%2fShanghai")
 	engine, err := xorm.NewEngine("mysql", dial)
 	if err != nil {
@@ -43,12 +44,12 @@ func NewStore(cfg *Conf) *Store {
 	engine.SetMaxIdleConns(cfg.MaxIdle)
 	engine.ShowSQL(cfg.ShowSQL)
 	engine.SetConnMaxLifetime(time.Hour * 2)
-
+	engine.SetColumnMapper(names.GonicMapper{})
 	return &Store{engine}
 }
 
 func NewQuery(cfg *Conf) *Query {
-	dial := fmt.Sprintf("%v:%v@tcp(%v)/%v?charset=utf8&loc=%v", cfg.Username,
+	dial := fmt.Sprintf("%v:%v@tcp(%v)/%v?charset=utf8&loc=%v", cfg.UserName,
 		cfg.Password, cfg.HostPort, cfg.DBName, "Asia%2fShanghai")
 	engine, err := xorm.NewEngine("mysql", dial)
 	if err != nil {

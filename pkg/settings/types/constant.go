@@ -62,12 +62,12 @@ const (
 )
 
 // 后端content-type类型
-type ServiceContentTypeCatagory string
+type ServiceContentTypeCategory string
 
 const (
-	ServiceContentTypeCatagoryClient  ServiceContentTypeCatagory = "CLIENT"  // 透传客户端ContentType头，CUSTOM 自定义，DEFAULT API网关默认
-	ServiceContentTypeCatagoryCustom  ServiceContentTypeCatagory = "CUSTOM"  // 自定义，DEFAULT API网关默认
-	ServiceContentTypeCatagoryDefault ServiceContentTypeCatagory = "DEFAULT" // API网关默认
+	ServiceContentTypeCatagoryClient  ServiceContentTypeCategory = "CLIENT"  // 透传客户端ContentType头，CUSTOM 自定义，DEFAULT API网关默认
+	ServiceContentTypeCatagoryCustom  ServiceContentTypeCategory = "CUSTOM"  // 自定义，DEFAULT API网关默认
+	ServiceContentTypeCatagoryDefault ServiceContentTypeCategory = "DEFAULT" // API网关默认
 
 	ServiceContentTypeValueDefault = "application/x-www-form-urlencoded; charset=UTF-8" // 后端content-type，API网关默认
 )

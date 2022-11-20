@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/w3liu/bull-gateway/cmd/config"
+	"github.com/w3liu/bull-gateway/config"
 	"github.com/w3liu/bull-gateway/pkg/server/handler"
 	"github.com/w3liu/bull/web"
 )

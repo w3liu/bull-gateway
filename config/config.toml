@@ -1,0 +1,17 @@
+# Runtime debug/release
+runtime = "debug"
+serverAddr = ":8090"
+manageAddr = ":8091"
+
+[service]
+name = "go.bull.srv.gateway"
+registry = ["127.0.0.1:2379"]
+
+[mysql]
+hostPort = "127.0.0.1:3306"
+userName = "root"
+dbName = "bull_gateway"
+password = "root"
+maxConns = 500
+maxIdle = 50
+showSQL = true

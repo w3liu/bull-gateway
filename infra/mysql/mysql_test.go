@@ -16,7 +16,7 @@ type TestUser struct {
 func initStore() *Store {
 	cfg := Conf{
 		HostPort: "127.0.0.1:3306",
-		Username: "root",
+		UserName: "root",
 		DBName:   "test",
 		Password: "111111",
 		MaxConns: 100,

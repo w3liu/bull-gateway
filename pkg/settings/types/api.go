@@ -13,16 +13,16 @@ type Api struct {
 
 	// 定义API请求
 	ReqPath          string              `xorm:"VARCHAR(255) comment('请求Path')"`
-	ReqHTTPMethod    HTTPMethod          `xorm:"VARCHAR(50) not null comment('请求方法：GET，POST，PATCH，PUT，DELETE，HEAD，OPTIONS，ANY')"`
+	ReqHttpMethod    HTTPMethod          `xorm:"VARCHAR(50) not null comment('请求方法：GET，POST，PATCH，PUT，DELETE，HEAD，OPTIONS，ANY')"`
 	InputRequestMode ApiInputRequestMode `xorm:"VARCHAR(100) not null comment('入参请求模式：MAPPING 入参映射（过滤未知参数），MAPPING_PASS_THROUGH 入参映射（透传未知参数），PASS_THROUGH 入参透传')"`
 
 	// 定义API后端服务
 	BackendType                BackendType                `xorm:"VARCHAR(100) not null comment('HTTP，RPC，MOCK')"`
 	ServiceAddress             string                     `xorm:"VARCHAR(255) comment('后端服务地址')"` // 格式：http(s)://host:port
 	ServicePath                string                     `xorm:"VARCHAR(255) comment('后端请求Path')"`
-	ServiceHTTPMethod          HTTPMethod                 `xorm:"VARCHAR(50) comment('请求方法：GET，POST，PATCH，PUT，DELETE，HEAD，OPTIONS，ANY')"`
+	ServiceHttpMethod          HTTPMethod                 `xorm:"VARCHAR(50) comment('请求方法：GET，POST，PATCH，PUT，DELETE，HEAD，OPTIONS，ANY')"`
 	ServiceTimeout             int32                      `xorm:"INT(11) default 0 comment('后端超时，单位ms')"`
-	ServiceContentTypeCatagory ServiceContentTypeCatagory `xorm:"VARCHAR(255) comment('后端content-type类型：CLIENT 透传客户端ContentType头，CUSTOM 自定义，DEFAULT API网关默认')"`
+	ServiceContentTypeCategory ServiceContentTypeCategory `xorm:"VARCHAR(255) comment('后端content-type类型：CLIENT 透传客户端ContentType头，CUSTOM 自定义，DEFAULT API网关默认')"`
 	ServiceContentTypeValue    string                     `xorm:"VARCHAR(255) comment('后端content-type'')"`     // 后端content-type，API网关默认application/x-www-form-urlencoded; charset=UTF-8
 	ServiceConstParams         string                     `xorm:"VARCHAR(2000) comment('后端服务常量参数，json数组存储')"`  // ApiServiceParamConstParam
 	ServiceParametersMap       string                     `xorm:"VARCHAR(2000) comment('入参和后端参数映射，json数组存储')"` // ApiServiceParameterMap 数组

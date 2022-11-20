@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"context"
+	"github.com/w3liu/bull-gateway/config"
 	"testing"
 
 	"github.com/BurntSushi/toml"
@@ -11,12 +12,12 @@ import (
 )
 
 func newStore() *mysql.Store {
-	conf := &mysql.Conf{}
-	_, err := toml.DecodeFile(".test/mysql.toml", conf)
+	conf := &config.Config{}
+	_, err := toml.DecodeFile("local/config.toml", conf)
 	if err != nil {
 		panic(err)
 	}
-	return mysql.NewStore(conf)
+	return mysql.NewStore(&conf.Mysql)
 }
 
 func TestApiStore_Create(t *testing.T) {
@@ -29,7 +30,7 @@ func TestApiStore_Create(t *testing.T) {
 		Description:      "desc",
 		Status:           0,
 		ReqPath:          "/user/add",
-		ReqHTTPMethod:    "GET",
+		ReqHttpMethod:    "GET",
 		InputRequestMode: "",
 	}
 	err := as.Create(context.TODO(), api, options.CreateOptions{})
