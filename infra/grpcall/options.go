@@ -1,12 +1,15 @@
 package grpcall
 
 import (
+	"time"
+
 	"github.com/jhump/protoreflect/desc"
 	"github.com/w3liu/bull/registry"
 	"google.golang.org/grpc"
 )
 
 type Options struct {
+	TimeOut   time.Duration
 	Registry  registry.Registry
 	Resource  ProtoResource
 	ClientMap map[string]*grpc.ClientConn
@@ -15,6 +18,7 @@ type Options struct {
 
 func newOptions(opts ...Option) Options {
 	var options = Options{
+		TimeOut:   DefaultTimeout,
 		ClientMap: make(map[string]*grpc.ClientConn),
 		FdMap:     make(map[string]*desc.FileDescriptor),
 	}

@@ -3,20 +3,28 @@ package grpcall
 import (
 	"context"
 	"fmt"
+	"io"
+	"strings"
+	"sync"
+	"time"
+
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/desc/protoparse"
 	"github.com/jhump/protoreflect/dynamic"
 	"github.com/w3liu/bull/client"
 	"google.golang.org/grpc"
-	"io"
-	"strings"
-	"sync"
 )
+
+var DefaultTimeout = time.Second * 5
 
 type grpcall struct {
 	sync.RWMutex
 	opts Options
+}
+
+func NewClient(opts ...Option) GrpClient {
+	return newGrpCall(opts...)
 }
 
 func newGrpCall(opts ...Option) GrpClient {
@@ -69,23 +77,24 @@ func (g *grpcall) Call(server, svcName, methodName, data string) (*Response, err
 	if err != nil {
 		return nil, err
 	}
-	err = cli.Invoke(context.TODO(), fmt.Sprintf("/%s/%s", mtd.GetService().GetFullyQualifiedName(), mtd.GetName()), req, resp)
-
+	ctx, cancel := context.WithTimeout(context.TODO(), g.opts.TimeOut)
+	defer cancel()
+	err = cli.Invoke(ctx, fmt.Sprintf("/%s/%s", mtd.GetService().GetFullyQualifiedName(), mtd.GetName()), req, resp)
+	if err != nil {
+		return nil, err
+	}
 	formatter, err := g.newFormatter(true)
 	if err != nil {
 		return nil, err
 	}
-
 	respText, err := formatter(resp)
 	if err != nil {
 		return nil, err
 	}
-
 	var result = &Response{
 		IsStream: false,
 		Data:     respText,
 	}
-
 	return result, err
 }
 
